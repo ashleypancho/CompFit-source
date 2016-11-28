@@ -1,0 +1,122 @@
+.challenges-sidebar {
+  position:fixed;
+
+  .navbar-header {
+    float: none;
+  }
+
+  .navbar .navbar-collapse {
+    padding: 0;
+  }
+
+  h3 {
+    margin-left: 15px;
+    margin-right: 10px;
+
+    i {
+      cursor: pointer;
+    }
+  }
+
+  .fa {
+    background-color: white;
+    border-radius: 100%;
+  }
+
+  .nav-pills {
+    border-bottom: 1px solid #666;
+  }
+
+  .nav-pills>li.active>a, .nav-pills>li.active>a:focus, .nav-pills>li.active>a:hover {
+    color: #000;
+    background-color: #FFFFFF;
+  }
+
+  .list-group-item.active {
+    background-color: #17607D;
+    border-color: #17607D;
+  }
+
+  .side-item {
+    height: auto;
+    border-radius: 0px;
+    padding: 15px;
+
+    h4 {
+      display: inline;
+    }
+
+    .team-name {
+        margin-bottom: 4px;
+    }
+    .challenge-info {
+        margin-top: 8px;
+    }
+
+    p {
+      float:right;
+    }
+  }
+
+  .list-group {
+    overflow-y: auto;
+    // max-height: 630px;
+    overflow-x: hidden;
+  }
+
+  .progress {
+    margin-bottom: 10px;
+    text-align: center;
+
+    .progress-value {
+        color: black;
+
+        position:absolute;
+        right:0;
+        left:0;
+    }
+
+    .progress-bar {
+      color: black;
+
+    }
+  }
+
+  .no-challenges {
+    text-align: center;
+
+    h4 {
+      border-top: 1px solid #888;
+      margin: 0px
+      padding: 35px;
+    }
+  }
+
+  /* Landscape tablets and medium-to-large desktops */
+  @media (min-width: 992px) {
+    height: 100%;
+    border-right: 2px solid #7D7D7D;
+    width: inherit;
+  }
+
+  /* Portrait tablets and small desktops */
+  /* Landscape phones and portrait tablets */
+  /* Portrait phones and smaller */
+  @media (max-width: 991px) {
+    right: 0;
+    left: 0;
+
+    .collapse {
+      display: none !important;
+    }
+
+    .collapse.in {
+      display: block !important;
+    }
+
+    .navbar-toggle {
+      display: block;
+      margin-left: 20px;
+    }
+  }
+}

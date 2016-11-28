@@ -1,0 +1,37 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body">
+          <div id="log_exercise_modal">
+              <form role="form" ng-submit="submitLog()">
+                <div class="form-group">
+                    <label for="exercise_name">Exercise Name</label>
+                    <select class="form-control" ng-model="selected_exercise" ng-options="exercise.exercise_name for exercise in exerciseList" ng-change="updateUnits()" required>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="exercise_repetitions">Repetitions</label>
+                    <input type="number" class="form-control" placeholder="Enter an amount"
+                    ng-model="selected_repetitions" min="0" max="1000" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="exercise_units">Units</label>
+                    <select class="form-control" ng-model="selected_units" ng-options="unit.unit_name for unit in unitsForExercise" required>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success pull-right">Create</button>
+              </form>
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" type="button" class="btn btn-default pull-right" style="margin-right: 10px;">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<div class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title">{{ title }}</h4>
+      </div>
+      <div class="modal-body">
+          <div id="create_challenge_modal">
+              <form role="form" ng-submit="submitChallenge()">
+                <div class="form-group">
+                    <label for="teamSelect">Select your team</label>
+                    <br>
+                    <select class="form-control" name="teamSelect" ng-model="selected_team" ng-options="team.team_name for team in usersTeams"></select>
+                </div>
+
+                <div class="form-group searchTeam">
+                    <label>Search opponent team</label>
+                    <i class='fa fa-close' ng-click='clearOpponent()' ng-show='selected_opponent'></i>
+                    <div class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-search"></i></span>
+                        <input id="teamsearch" type="text" class="form-control" placeholder="Find team"
+                        ng-disabled="selected_opponent" autocomplete="off" ng-model="query" required>
+                    </div>
+                    <ul class='{{stateitem}}' ng-show='showQuery()'>
+                        <li ng-click='selectOpponent(team)' ng-repeat='team in all_teams | filter: query | limitTo:5'>
+                          <div class="teamNameInSearch">{{team.team_name}}</div> <div class="captainNameInSearch">{{team.captain_name}}</div>
+                        </li>
+                    </ul>
+                    <div ng-show="opponentSelectedFormError" class="formErrorMsg">
+                        {{opponentSelectedFormError}}
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-4">
+                        <label for="exercise_name">Exercise</label>
+                        <select class="form-control" name="exercise_name" ng-model="selected_exercise"
+                            ng-options="exercise.exercise_name for exercise in exerciseList" ng-change="updateUnits()" required>
+                        </select>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="exercise_repetitions">Amount</label>
+                        <input type="number" class="form-control" placeholder="Enter {{selected_units.unit_name}}" ng-model="new_challenge.repetitions" min="0" max="10000" required>
+                    </div>
+
+                    <div class="form-group col-sm-4">
+                        <label for="exercise_units">Units</label>
+                        <select class="form-control" ng-model="selected_units" ng-options="unit.unit_name for unit in unitsForExercise" required>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-2"> </div>
+                    <div class="form-group col-sm-4 radioBtnList">
+                        <label for="individual_radio">
+                        <input type="radio" name="individual_radio" ng-model="new_challenge.task_type" value="Individual">Individual Task</label>
+                    </div>
+                    <div class="form-group col-sm-4 radioBtnList radio">
+                        <label for="group_radio">Group Task
+                            <input type="radio" name="group_radio" ng-model="new_challenge.task_type" value="Group">
+                        </label>
+                    </div>
+                    <div class="col-sm-2"> </div>
+                </div>
+
+                <div class="row">
+                    <div class="form-group col-sm-6">
+                        <label for="start_date">Start date</label>
+                        <br>
+                        <input class="form-control" id="startDatePicker" type="date" name="start_date" ng-change="updateStartDate()" ng-model="new_challenge.start_date" min="{{minChallengeStartDate}}" required>
+                    </div>
+                    <div class="form-group col-sm-6">
+                        <label for="end_date"> End date </label><br>
+                        <input class="form-control" type="date" name="end_date" ng-model="new_challenge.end_date" min="{{minChallengeEndDate}}" required>
+                    </div>
+                </div>
+
+                <div class="row formSummary">
+                    <div class="col-sm-12">
+                        <h4>{{selected_team.team_name}} vs. {{selected_opponent.team_name ? selected_opponent.team_name : fill_in_opponent}}</h4>
+                        <p>
+                            Each player
+                            <span ng-show="new_challenge.task_type=='Individual'">must do <b>{{new_challenge.repetitions ? new_challenge.repetitions : fill_in_repetitions}}</b></span>
+                            <span ng-show="new_challenge.task_type=='Group'">should do about <b>~{{new_challenge.repetitions ? (new_challenge.repetitions/selected_team.players.length).toFixed(1) : fill_in_repetitions}}</b></span>
+                            <b>{{selected_exercise.exercise_name ? selected_units.unit_name : fill_in_units}}</b> of
+                            <b>{{selected_exercise.exercise_name ? selected_exercise.exercise_name : fill_in_exercise}}</b>
+                            between
+                            <b>{{new_challenge.start_date | date: 'shortDate'}}</b>
+                            and
+                            <b>{{new_challenge.end_date | date:'shortDate'}}</b>.
+                        </p>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-success">Create</button>
+              </form>
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button data-dismiss="modal" type="button" class="btn btn-default pull-right" style="margin-right: 10px;">Cancel</button>
+      </div>
+
+    </div>
+  </div>
+</div>

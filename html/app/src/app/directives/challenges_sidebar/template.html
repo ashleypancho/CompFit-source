@@ -1,0 +1,88 @@
+<div class="challenges-sidebar">
+    <div class="navbar navbar-default sidebar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#side-nav" aria-expanded="false">
+                <span class="sr-only">Sidebar Dropdown</span>
+                <span class="glyphicon glyphicon-chevron-down"></span>
+            </button>
+            <h3>Your Challenges <a ui-sref-active="active" ui-sref="app.challenge"><i ng-click="toggleModal()" class="fa fa-plus-circle fa-lg fa-pull-right"></i></a></h3>
+        </div>
+        <div class="navbar-collapse collapse" id="side-nav">
+            <ul class="nav nav-pills" role="tabnav">
+                <li role="presentation" ng-class="{'active' : showCurrent}">
+                    <a href="#current" aria-controls="current" role="tab" ng-click="showCurrentChallenges()">Current</a>
+                </li>
+                <li role="presentation" ng-class="{'active' : !showCurrent}">
+                    <a href="#past" aria-controls="past" role="tab" ng-click="showPastChallenges()">Past</a>
+                </li>
+            </ul>
+            <div id="tabs" class="tab-content">
+                <div role="tabpanel" class="tab-pane" ng-class="{'active' : showCurrent}" id="current" ng-show="showCurrent">
+                    <ul class="nav list-group" id="challengelist" ng-show="challenges.length > 0" ng-click="saveStateInfo()">
+                        <li ng-repeat="challenge in challenges track by $index">
+                            <a class="list-group-item side-item" ui-sref-active="active" ui-sref="app.challenge({id:{{challenge.challenge_id}}})">
+                                <h4>{{challenge.user_team.team_name}} vs. {{challenge.oppo_team.team_name}}</h4>
+                                <p>{{getDaysLeft(challenge)}} days left</p>
+                                <h5 class="challenge-info">{{challenge.task_name}} | {{challenge.repetitions}} {{challenge.units}}</h5>
+                                <h6 class="team-name">{{challenge.user_team.team_name}}</h6>
+                                <div class="progress">
+                                    <span class="progress-value">
+                                        {{challenge.user_team.fraction_team_progress ? challenge.user_team.fraction_team_progress : getProgressLongFraction(challenge,'my_team')}}
+                                        {{challenge.units}}
+                                    </span>
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{getTeamProgress(challenge)}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{getTeamProgress(challenge)}}%">
+                                    </div>
+                                </div>
+                                <h6 class="team-name">{{challenge.oppo_team.team_name}}</h6>
+                                <div class="progress">
+                                    <span class="progress-value">
+                                        {{challenge.oppo_team.fraction_team_progress ? challenge.oppo_team.fraction_team_progress : getProgressLongFraction(challenge,'opponent_team')}}
+                                        {{challenge.units}}
+                                    </span>
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{getOppoTeamProgress(challenge)}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{getOppoTeamProgress(challenge)}}%">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div role="tabpanel" class="tab-pane" ng-class="{'active' : !showCurrent}" id="past" ng-show="!showCurrent">
+                    <ul class="nav list-group" id="pastchallengelist" ng-show="past_challenges.length > 0" ng-click="saveStateInfo()">
+                        <li ng-repeat="past_challenge in past_challenges track by $index">
+                            <a class="list-group-item side-item" ui-sref-active="active" ui-sref="app.challenge({id:{{past_challenge.challenge_id}}})">
+                                <h4>{{past_challenge.user_team.team_name}} vs. {{past_challenge.oppo_team.team_name}}</h4>
+                                <p>{{getTeamProgress(past_challenge) > getOppoTeamProgress(past_challenge) ? 'Win &#9786;' : 'Loss &#9785;'}}</p>
+                                <h5 class="challenge-info">{{past_challenge.task_name}} | {{past_challenge.repetitions}} {{past_challenge.units}}</h5>
+                                <h6 class="team-name">{{past_challenge.user_team.team_name}}</h6>
+                                <div class="progress">
+                                    <span class="progress-value">
+                                        {{past_challenge.user_team.fraction_team_progress ? past_challenge.user_team.fraction_team_progress : getProgressLongFraction(past_challenge,'my_team')}}
+                                        {{past_challenge.units}}
+                                    </span>
+                                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{getTeamProgress(past_challenge)}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{getTeamProgress(past_challenge)}}%">
+                                    </div>
+                                </div>
+                                <h6 class="team-name">{{past_challenge.oppo_team.team_name}}</h6>
+                                <div class="progress">
+                                    <span class="progress-value">
+                                        {{past_challenge.oppo_team.fraction_team_progress ? past_challenge.oppo_team.fraction_team_progress : getProgressLongFraction(past_challenge,'opponent_team')}}
+                                        {{past_challenge.units}}
+                                    </span>
+                                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{getOppoTeamProgress(past_challenge)}}"
+                                        aria-valuemin="0" aria-valuemax="100" style="width:{{getOppoTeamProgress(past_challenge)}}%">
+                                    </div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="no-challenges" ng-show="challenges.length <= 0">
+                <h4>No challenges to show</h4>
+            </div>
+        </div>
+    </div>
+</div>

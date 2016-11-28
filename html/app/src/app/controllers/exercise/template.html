@@ -1,0 +1,58 @@
+<div id="exercise">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-3">
+                <exercises-sidebar></exercises-sidebar>
+            </div>
+
+            <div class="col-md-9">
+                <div class="topSection row" ng-show="exercise_selected">
+                    <div class="col-sm-12">
+                        <h2>{{exercise.exercise_name}} | {{exercise.repetitions}} {{exercise.units}}</h2>
+                        <h3>{{exercise.date_completed | date: 'shortDate'}}</h3>
+                        <h4>You did {{exercise.repetitions}} {{exercise.units}} of {{exercise.exercise_name}}
+                            on {{exercise.date_completed | date: 'shortDate'}}.</h4>
+                    </div>
+                </div>
+
+                <div class="bottomSection row" ng-show="exercise_selected">
+                    <div class="col-sm-12">
+                        <h2> Challenge Contribution </h2>
+                        <h4 ng-if="challenges.length <= 0"> This exercise did not contribute to any challenges. </h4>
+                        <div ng-if="challenges.length > 0" class="list-group" id="exercisechallengelist">
+                            <div ng-repeat="challenge in challenges">
+                                <a class="list-group-item" ui-sref="app.challenge({id:{{challenge.challenge_id}}})">
+                                    <h3 class="challenge-teams">{{challenge.user_team.team_name}} vs. {{challenge.oppo_team.team_name}}</h3>
+                                    <h4 class="challenge-title">
+                                        {{challenge.task_name}} |
+                                        {{challenge.task_type=='Individual' ? challenge.repetitions : challenge.repetitions}}
+                                        {{challenge.units}} {{challenge.task_type=='Individual' ? 'per player' : ''}}
+                                    </h4>
+
+                                    <h5>{{challenge.user_team.team_name}} progress</h5>
+                                    <div class="progress">
+                                        <span class="progress-value"> {{getProgressFraction(challenge,'my_team')}} {{challenge.units}}</span>
+                                        <div class="progress-bar progress-bar-success dark-text" role="progressbar" aria-valuenow="{{getTeamProgress(challenge)}}"
+                                          aria-valuemin="0" aria-valuemax="100" style="width:{{getAdjustedTeamProgress(challenge)}}%">
+                                        </div>
+                                        <div class="progress-bar progress-bar-warning" style="width: {{getUserAddition(challenge)}}%">
+                                            <span class="sr-only">{{getUserAddition(challenge)}}% Complete</span>
+                                        </div>
+                                    </div>
+                                    <!-- <h5> Your progress </h5>
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success dark-text" role="progressbar" aria-valuenow="{{getUserProgress(challenge)}}"
+                                          aria-valuemin="0" aria-valuemax="100" style="width:{{getUserProgress(challenge)}}%">
+                                            {{getUserProgress(challenge)}}% Complete
+                                        </div>
+                                    </div> -->
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <log-exercise-modal id="logexercisemodal" title="Log an Exercise"/>
+            </div>
+        </div>
+    </div>
+</div>

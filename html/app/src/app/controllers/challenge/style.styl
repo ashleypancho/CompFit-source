@@ -1,0 +1,138 @@
+#challenge {
+    .row {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    .col-md-3 {
+        padding: 0px;
+        z-index: 1029;
+    }
+
+    .col-md-9 {
+        padding: 0px;
+    }
+
+    .topSection{
+        h3 {
+            margin-top: 15px;
+        }
+    }
+
+    .bottomSection {
+        .tab-content {
+            padding-top: 15px;
+            border-radius: 0px;
+
+            .col-sm-6 {
+                padding-bottom: 15px;
+            }
+        }
+
+        .opponent-panel-heading {
+            background-color: #17607D;
+            /*background-color: #DC3522;*/
+        }
+
+        .my-panel-heading {
+            background-color: #17607D;
+            cursor: pointer;
+        }
+
+        .panel-heading {
+            height: 80px;
+            padding: 10px;
+
+            img {
+                width: 60px;
+                height: 60px;
+                float:left;
+            }
+
+            p {
+                padding-top: 0px;
+                padding-left: 10px;
+                margin-left: 60px;
+                font-size: 28px;
+                color: white;
+            }
+
+            .progress {
+                margin-top: -10px;
+                margin-left: 70px;
+                text-align: center;
+
+                .progress-value {
+                    color: black;
+                    margin-left: 70px;
+                    position:absolute;
+                    right:0;
+                    left:0;
+                }
+
+                .progress-bar {
+                    color: black;
+                }
+            }
+        }
+
+        .panel {
+            margin-bottom: 0px;
+        }
+
+        table {
+            position: relative;
+            overflow: hidden;
+            border-collapse: collapse;
+
+            tr, td {
+                background: none;
+
+                .captain-icon {
+                    height: 16px;
+                    float: right;
+                }
+            }
+
+            td i {
+                float: right;
+                padding-left: 5px;
+                z-index: 2;
+            }
+        }
+
+        .player-progress {
+            position: absolute;
+            margin-top: -8px;
+            opacity: 0.2;
+            left: -100%;
+            width: 100%;
+            height: 0px;
+            z-index: 1;
+            background: #8F8;
+            transition:left .5s;
+        }
+
+        #myteamchart {
+            height: 350px;
+        }
+        #opponentteamchart {
+            height: 350px;
+        }
+
+        .highcharts-container {
+            border-radius: 3px;
+            border: 1px solid #DDDDDD;
+        }
+    }
+
+    /* Portrait tablets and small desktops */
+    /* Landscape phones and portrait tablets */
+    /* Portrait phones and smaller */
+    @media (max-width: 991px) {
+        .col-md-3 {
+            position:fixed;
+            top: 50px;
+        }
+    }
+}

@@ -1,0 +1,26 @@
+<div class="exercises-sidebar">
+    <div class="navbar navbar-default sidebar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#side-nav" aria-expanded="false">
+                <span class="sr-only">Sidebar Dropdown</span>
+                <span class="glyphicon glyphicon-chevron-down"></span>
+            </button>
+            <h3>Exercise Log<a ng-click="toggleModal()"><i class="fa fa-plus-circle fa-lg fa-pull-right"></i></a></h3>
+        </div>
+        <div class="navbar-collapse collapse" id="side-nav">
+            <ul class="nav list-group" id="exerciselist" ng-show="exercises.length > 0">
+                <li ng-repeat="exercise in exercises">
+                    <a class="list-group-item side-item" ng-click="saveScrollPosition()"
+                        ui-sref-active="active" ui-sref="app.exercise({id:{{exercise.exercise_id}}})">
+                        <h4>{{exercise.exercise_name}}</h4>
+                        <p>{{exercise.date_completed | date: 'shortDate'}}</p>
+                        <h5>{{exercise.repetitions}} {{exercise.units}}</h5>
+                    </a>
+                </li>
+            </ul>
+            <div class="no-exercises" ng-show="exercises.length <= 0">
+                <h4>No exercises to show</h4>
+            </div>
+        </div>
+    </div>
+</div>

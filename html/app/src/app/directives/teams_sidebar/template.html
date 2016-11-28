@@ -1,0 +1,28 @@
+<div class="teams-sidebar">
+    <div class="navbar navbar-default sidebar" role="navigation">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#side-nav" aria-expanded="false">
+                <span class="sr-only">Sidebar Dropdown</span>
+                <span class="glyphicon glyphicon-chevron-down"></span>
+            </button>
+            <h3>Your Teams <a ng-click="toggleModal()"><i class="fa fa-plus-circle fa-lg fa-pull-right"></i></a></h3>
+        </div>
+        <div class="navbar-collapse collapse" id="side-nav">
+            <ul class="nav list-group">
+                <li ng-repeat="team in teams">
+                    <a class="list-group-item side-item" ui-sref-active="active" ui-sref="app.team({id:{{team.team_id}}})">
+                        <img src="{{team.avatar}}" alt="group by Alexandra Coscovelnita from the Noun Project" class="side-thumbnail">
+                        <h4>{{team.team_name}}</h4>
+                        <h5>{{team.players.length}} members</h5>
+                        <p ng-if="team.challenges[0]">Challenge ends in {{getDaysLeft(team.challenges[0])}} days</p>
+                        <p ng-if="team.challenges.length == 0">No ongoing challenges</p>
+                        <!--<div><img src="/img/application/captain-icon.png"/> {{team.captain_name}} <b>|</b> <img src="/img/application/challenge-icon.png"/><span class="badge">3</span></div>-->
+                    </a>
+                </li>
+            </ul>
+            <div class="no-teams" ng-show="teams.length <= 0">
+                <h4>No teams to show</h4>
+            </div>
+        </div>
+    </div>
+</div>
